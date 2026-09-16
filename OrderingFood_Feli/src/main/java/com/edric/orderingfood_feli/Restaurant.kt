@@ -18,7 +18,7 @@ class Restaurant(
 
         when(input){
             1-> makeOrder()
-            2-> makeOrder()
+            2-> viewOrder()
             3-> makeOrder()
             4-> makeOrder()
             5-> makeOrder()
@@ -67,6 +67,7 @@ class Restaurant(
             print(error_message)
         }
     }
+
     fun takeInput(text:String,first:Double,last:Double):Double{
         /**
          * first and last = 0.0 for no limit
@@ -90,7 +91,6 @@ class Restaurant(
     fun makeOrder(){
         if(menu.itemList.size==0){
             println("No item in menu yet")
-            home()
         }else{
             println("---Make Order---")
             print("Name: ");val name=readLine()?:""
@@ -106,9 +106,19 @@ class Restaurant(
                 currentOrderList.addOrder(Order(item,amount))
                 println("Successfully added to $item x $amount order")
             }
-
+            println()
         }
+        home()
+    }
 
+    fun viewOrders(){
+        println("----ORDERS----")
+        var i=1
+        for(orderList in orderLists){
+            println("$i.")
+            orderList.show()
+            i++
+        }
     }
 
 }
