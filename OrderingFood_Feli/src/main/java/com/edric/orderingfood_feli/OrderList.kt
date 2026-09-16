@@ -34,8 +34,7 @@ class OrderList(
                 val name=itemOrder.item.name
                 val count=itemOrder.amount
                 val price=itemOrder.item.price
-                println("$i. ${name} * ${count}    ${count*price}")
-                break
+                println("$i. ${name} x ${count}    $${count*price}")
             }
             println("------------------------")
             println("TOTAL:           $$total")

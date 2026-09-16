@@ -37,7 +37,7 @@ class Restaurant(
 
         val noLimit = first==0 && last==0
         while(true){
-            println(text)
+            print(text)
             val str = readlnOrNull()?.toIntOrNull()
             if(str!=null){
                 val inLimit = str>=first&&str<=last
@@ -56,7 +56,7 @@ class Restaurant(
 
         val noLimit = first==0 && last==0
         while(true){
-            println(text)
+            print(text)
             val str = readlnOrNull()?.toIntOrNull()
             if(str!=null){
                 val inLimit = str>=first&&str<=last
@@ -93,7 +93,7 @@ class Restaurant(
 
         val noLimit = first==0.0 && last==0.0
         while(true){
-            println(text)
+            print(text)
             val str = readlnOrNull()?.toDoubleOrNull()
             if(str!=null){
                 val inLimit = str>=first&&str<=last
@@ -119,11 +119,13 @@ class Restaurant(
                 menu.show()
                 println("0. Exit")
                 val select=takeInput("Select: ",0,menu.itemList.size)
-                val item=menu.itemList.get(select-1)
                 if (select==0)break
-                val amount=takeInput("Amount",1,1000,"Only (1-1000) is allowed")
+                val item=menu.itemList.get(select-1)
+                println("Selection:")
+                item.show()
+                val amount=takeInput("Amount: ",1,1000,"Only (1-1000) is allowed")
                 currentOrderList.addOrder(Order(item,amount))
-                println("Successfully added to $item x $amount order")
+                println("Successfully added to ${item.name} x $amount order")
             }
             println()
         }
@@ -196,7 +198,7 @@ class Restaurant(
             println("Selection: ")
             item.show()
             println("ARE YOU SURE YOU WANT TO DELETE")
-            println("y to delete");val input=readLine()?:""
+            print("y to delete: ");val input=readLine()?:""
             if(input.equals("y",true)){
                 menu.itemList.remove(item)
                 println("Successfully deleted ${item.name} from the menu ")

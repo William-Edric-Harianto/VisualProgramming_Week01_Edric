@@ -8,9 +8,9 @@ class Menu(){
             println("no items yet...")
         }else{
             println("<-MENU->")
-            var i=0
+            var i=1
             for(item in itemList) {
-                println("$i. ${item.name} | ${item.price}")
+                println("$i. ${item.name} | ${item.description} | ${item.price}")
                 i++
             }
         }
