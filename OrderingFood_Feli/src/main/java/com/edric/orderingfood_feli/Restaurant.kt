@@ -169,8 +169,42 @@ class Restaurant(
             val select = takeInput("Select: ",1,menu.itemList.size)
             val item = menu.itemList.get(select-1)
             item.show()
-            //todo
+            println()
+            println("---EDIT MENU---")
+            print("New Name: ");val name= readLine()?:""
+            print("New Description: ");val desc= readLine()?:""
+            val price= takeInput("New Price: ",0.0,10_000.0,"Only (0-10000) is allowed")
+            val oldName=item.name;val oldDesc=item.description;val oldPrice=item.price
+            item.name=name;item.description=desc;item.price=price
+            println("Succesfully Changed:")
+            println("Name from $oldName to $name")
+            println("Name from $oldDesc to $desc")
+            println("Name from $oldPrice to $price")
+            println()
         }
         home()
     }
+
+    fun deleteMenu(){
+        if(menu.itemList.size==0){
+            println("No menu added yet...")
+        }else{
+            println("---DELETE MENU---")
+            menu.show()
+            val select = takeInput("Select: ",1,menu.itemList.size)
+            val item = menu.itemList.get(select-1)
+            println("Selection: ")
+            item.show()
+            println("ARE YOU SURE YOU WANT TO DELETE")
+            println("y to delete");val input=readLine()?:""
+            if(input.equals("y",true)){
+                menu.itemList.remove(item)
+                println("Successfully deleted ${item.name} from the menu ")
+            }else{
+                println("Failed to remove ${item.name} from the menu")
+            }
+        }
+        home()
+    }
+
 }
