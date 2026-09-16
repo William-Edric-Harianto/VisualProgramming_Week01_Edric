@@ -19,10 +19,10 @@ class Restaurant(
         when(input){
             1-> makeOrder()
             2-> viewOrders()
-            3-> makeOrder()
-            4-> makeOrder()
-            5-> makeOrder()
-            6-> makeOrder()
+            3-> viewMenu()
+            4-> addMenu()
+            5-> editMenu()
+            6-> deleteMenu()
             7->return
             else->home()
         }
@@ -86,6 +86,25 @@ class Restaurant(
         }
     }
 
+    fun takeInput(text:String,first:Double,last:Double,error_message:String):Double{
+        /**
+         * first and last = 0 for no limit
+         */
+
+        val noLimit = first==0.0 && last==0.0
+        while(true){
+            println(text)
+            val str = readlnOrNull()?.toDoubleOrNull()
+            if(str!=null){
+                val inLimit = str>=first&&str<=last
+                if(noLimit||inLimit){
+                    return str
+                }
+            }
+            print(error_message)
+        }
+    }
+
     //endregion
 
     fun makeOrder(){
@@ -124,6 +143,19 @@ class Restaurant(
             }
         }
         home()
+    }
+
+    fun viewMenu(){
+        menu.show()
+        home()
+    }
+
+    fun addMenu(){
+        println("---ADD MENU---")
+        print("Name: ");val name= readLine()?:""
+        print("Description: ");val desc= readLine()?:""
+        val price= takeInput("Price: ",0.0,10_000.0,"Only (0-10000) is allowed")
+        menu.itemList.add(Item(name,desc,price))
     }
 
 }

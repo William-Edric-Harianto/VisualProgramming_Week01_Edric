@@ -4,11 +4,15 @@ class Menu(){
     val itemList = ArrayList<Item>()
 
     fun show(){
-        println("<-MENU->")
-        var i=0
-        for(item in itemList) {
-            println("$i. ${item.name} | ${item.price}")
-            i++
+        if(itemList.size==0){
+            println("no items yet...")
+        }else{
+            println("<-MENU->")
+            var i=0
+            for(item in itemList) {
+                println("$i. ${item.name} | ${item.price}")
+                i++
+            }
         }
     }
 }
