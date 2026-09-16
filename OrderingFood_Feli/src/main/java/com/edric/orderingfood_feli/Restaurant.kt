@@ -104,6 +104,7 @@ class Restaurant(
                 if (select==0)break
                 val amount=takeInput("Amount",1,1000,"Only (1-1000) is allowed")
                 currentOrderList.addOrder(Order(item,amount))
+                println("Successfully added to $item x $amount order")
             }
 
         }
