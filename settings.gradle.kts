@@ -25,3 +25,4 @@ dependencyResolutionManagement {
 rootProject.name = "B_1076012510036_Edric_Week01_Homework"
 include(":app")
 include(":OrderingFood_Feli")
+include(":WizardAdventure_Gavin")
