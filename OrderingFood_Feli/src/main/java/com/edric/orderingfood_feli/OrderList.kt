@@ -49,4 +49,12 @@ class OrderList(
         orderList.add(newOrder)
     }
 
+    fun removeOrder(index:Int,amount:Int){
+        for(order in orderList){
+            if(order.item==newOrder.item){
+                order.amount+=newOrder.amount
+                return
+            }
+        }
+    }
 }
