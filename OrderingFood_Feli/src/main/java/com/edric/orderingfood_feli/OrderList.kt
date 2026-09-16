@@ -25,8 +25,11 @@ class OrderList(
     }
 
     fun show (){
-        println("----$name's Order----")
-        var i=1
+        if(orderList.size==0){
+            println("No items yet...")
+        }else{
+            println("----$name's Order----")
+            var i=1
             for(itemOrder in orderList){
                 val name=itemOrder.item.name
                 val count=itemOrder.amount
@@ -34,8 +37,9 @@ class OrderList(
                 println("$i. ${name} * ${count}    ${count*price}")
                 break
             }
-        println("------------------------")
-        println("TOTAL:           $$total")
+            println("------------------------")
+            println("TOTAL:           $$total")
+        }
     }
 
     fun addOrder(newOrder:Order){

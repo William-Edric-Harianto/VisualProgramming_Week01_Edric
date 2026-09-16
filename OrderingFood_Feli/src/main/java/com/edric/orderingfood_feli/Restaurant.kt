@@ -18,7 +18,7 @@ class Restaurant(
 
         when(input){
             1-> makeOrder()
-            2-> viewOrder()
+            2-> viewOrders()
             3-> makeOrder()
             4-> makeOrder()
             5-> makeOrder()
@@ -112,13 +112,18 @@ class Restaurant(
     }
 
     fun viewOrders(){
-        println("----ORDERS----")
-        var i=1
-        for(orderList in orderLists){
-            println("$i.")
-            orderList.show()
-            i++
+        if(orderLists.size==0){
+            println("No orders yet...")
+        }else{
+            println("----ORDERS----")
+            var i=1
+            for(orderList in orderLists){
+                println("$i.")
+                orderList.show()
+                i++
+            }
         }
+        home()
     }
 
 }
