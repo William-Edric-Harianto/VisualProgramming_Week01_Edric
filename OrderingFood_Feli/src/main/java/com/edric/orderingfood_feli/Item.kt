@@ -6,4 +6,10 @@ class Item (
     var price:Double
     ){
 
+    fun show(){
+        println("Name: $name")
+        println("Desc: $description")
+        println("Price: $price")
+    }
+
 }

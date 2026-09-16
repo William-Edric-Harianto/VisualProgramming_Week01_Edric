@@ -156,6 +156,21 @@ class Restaurant(
         print("Description: ");val desc= readLine()?:""
         val price= takeInput("Price: ",0.0,10_000.0,"Only (0-10000) is allowed")
         menu.itemList.add(Item(name,desc,price))
+        println("successfully added $name | $desc | $$price")
+        home()
     }
 
+    fun editMenu(){
+        if(menu.itemList.size==0){
+            println("no menu added yet...")
+        }else{
+            println("---Show Menu---")
+            menu.show()
+            val select = takeInput("Select: ",1,menu.itemList.size)
+            val item = menu.itemList.get(select-1)
+            item.show()
+            //todo
+        }
+        home()
+    }
 }
