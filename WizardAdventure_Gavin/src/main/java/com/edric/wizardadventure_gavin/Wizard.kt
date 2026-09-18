@@ -51,24 +51,54 @@ class Wizard(): Fighter(){
         }
     }
 
+//    region drinkPotion
+
     fun drinkManaPotion(){
-        if(manaPotion<=0){
+        if(manaPotion>0){
             manaPotion--
             val oldMana=mana
             mana= min(maxMana,mana+15)
             println("Drank Mana Potion restored ${mana-oldMana}")
+        }else{
+            println("No Mana Potion in inventory")
+            drinkPotion()
         }
     }
 
     fun drinkHealthPotion(){
-        if(HPPotion<=0){
+        if(HPPotion>0){
             HPPotion--
             val oldHP=HP
             HP= min(maxHP,HP+25)
             println("Drank Health Potion restored ${HP-oldHP}")
+        }else{
+            println("No Health Potion in inventory")
+            drinkPotion()
+        }
+    }
+
+    fun drinkPotion(){
+        println("---DRINK POTION---")
+        println("1. Drink Mana Potion")
+        println("2. Drink Health Potion")
+        val select=App.takeInput("Select Action: ",1,2)
+        if(select==1){
+            drinkManaPotion()
+        }else{
+            drinkHealthPotion()
         }
     }
 
 
+
+    override fun takeDamage(attacker: Fighter, type: Types?) {
+        super.takeDamage(attacker, type)
+        var dmg=attacker.damage
+        if(dmg>HP){dmg=HP;HP=0}else{HP-=dmg}
+        println("${attacker.name} attacked ${name} -${dmg}HP")
+        if(HP==0){println("${attacker.name} successfully defeated ${name}")}
+    }
+
+//  endregion
 
 }

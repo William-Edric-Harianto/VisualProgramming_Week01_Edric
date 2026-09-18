@@ -12,47 +12,49 @@ class App {
         }
     }
 
-    //region takeInput
+    companion object {
+        //region takeInput
 
-    fun takeInput(text:String,first:Int,last:Int):Int{
-        /**
-         * first and last = 0 for no limit
-         */
+        fun takeInput(text: String, first: Int, last: Int): Int {
+            /**
+             * first and last = 0 for no limit
+             */
 
-        val noLimit = first==0 && last==0
-        while(true){
-            print(text)
-            val str = readlnOrNull()?.toIntOrNull()
-            if(str!=null){
-                val inLimit = str>=first&&str<=last
-                if(noLimit||inLimit){
-                    return str
+            val noLimit = first == 0 && last == 0
+            while (true) {
+                print(text)
+                val str = readlnOrNull()?.toIntOrNull()
+                if (str != null) {
+                    val inLimit = str >= first && str <= last
+                    if (noLimit || inLimit) {
+                        return str
+                    }
                 }
+                print("Wrong input, only integer between ($first - $last) is allowed!")
             }
-            print("Wrong input, only integer between ($first - $last) is allowed!")
         }
-    }
 
-    fun takeInput(text:String,first:Int,last:Int,error_message:String):Int{
-        /**
-         * first and last = 0 for no limit
-         */
+        fun takeInput(text: String, first: Int, last: Int, error_message: String): Int {
+            /**
+             * first and last = 0 for no limit
+             */
 
-        val noLimit = first==0 && last==0
-        while(true){
-            print(text)
-            val str = readlnOrNull()?.toIntOrNull()
-            if(str!=null){
-                val inLimit = str>=first&&str<=last
-                if(noLimit||inLimit){
-                    return str
+            val noLimit = first == 0 && last == 0
+            while (true) {
+                print(text)
+                val str = readlnOrNull()?.toIntOrNull()
+                if (str != null) {
+                    val inLimit = str >= first && str <= last
+                    if (noLimit || inLimit) {
+                        return str
+                    }
                 }
+                print(error_message)
             }
-            print(error_message)
         }
-    }
 
-    //endregion
+        //endregion
+    }
 
     fun begin(){
         println("What's your name?")
@@ -117,22 +119,66 @@ class App {
 
     fun enterBattle(){
         val monster= Monster(Types.entries.random())
+        var end=false
+        do{
+            end=battle(monster)
+        }while(!end)
+
 
     }
 
-    fun battle(monster: Monster){
+    fun battle(monster: Monster):Boolean{
         println("——— BATTLE ———\n")
         wizard.stats()
         println()
         monster.show()
-        println("""
-            ——————————
-            a. Fire Attack
-            b. Water Attack
-            c. Grass Attack
-            d. Drink potion
-            e. Run
-        """.trimIndent())
+        var end = wizardATK(monster)
+        end=monsterATK(monster)
+        return end
+    }
+
+    fun wizardATK(monster: Monster):Boolean{
+//        preset
+        var end=false
+//        input
+        while(true){
+            println("""
+                ——————————
+                a. Fire Attack
+                b. Water Attack
+                c. Grass Attack
+                d. Drink potion
+                e. Run
+            """.trimIndent())
+
+            print("Selection: ");val select = readLine()
+
+            when{
+                select.equals("a",true)->{wizard.attack(monster,Types.FIRE);break}
+                select.equals("b",true)->{wizard.attack(monster,Types.WATER);break}
+                select.equals("c",true)->{wizard.attack(monster,Types.GRASS);break}
+                select.equals("d",true)->{
+                    if(wizard.manaPotion>0||wizard.HPPotion>0){
+                        wizard.drinkPotion();break
+                    }else{
+                        println("No Potion in Inventory")
+                    }
+                }
+                select.equals("e",true)->{
+                    end = true
+                    print("${wizard.name} ran from battle")
+                    break}
+                else->println("Invalid Input")
+            }
+        }
+        return (end||monster.HP==0)
+    }
+
+    fun monsterATK(monster: Monster):Boolean{
+//        preset
+        var end=false
+        monster.attack(wizard,null)
+        return (end||wizard.HP==0)
     }
 
     //endregion

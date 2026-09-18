@@ -16,23 +16,21 @@ class Monster(
         println("Type: ${type.name}")
     }
 
-    override fun takeDamage(attacker: Fighter, attackerType: Types) {
-        super.takeDamage(attacker, attackerType)
+    override fun takeDamage(attacker: Fighter, attackerType:Types?) {
+        super.takeDamage(attacker, type)
         var dmg=attacker.damage
         if(
             attackerType==Types.GRASS && this.type==Types.WATER||
             attackerType==Types.WATER && this.type==Types.FIRE||
             attackerType==Types.FIRE && this.type==Types.GRASS
             )
-        {HP-=dmg*2}else{HP-=dmg}
-
-        if(HP<=0){
-            isAlive=false
-        }
-
+        {dmg*=2}
+        if(dmg>=HP){dmg=HP;HP=0}
         println("$name took $dmg amount of damage of ${attacker.name}")
-
+        if(HP==0) println("${attacker.name} Successfully defeated${this.name}")
     }
+
+
 
 
 }
