@@ -9,11 +9,10 @@ abstract class Fighter {
     var HP=0
     var maxHP=0
 
-    fun attack(target: Fighter,type: Types?){
-        target.takeDamage(this,type)
+    fun attack(target: Fighter,type: Types?):Boolean{
+        return target.takeDamage(this,type)
     }
 
-    open fun takeDamage(attacker:Fighter,type:Types?){}
-
+    open fun takeDamage(attacker:Fighter,type:Types?):Boolean{return false}
 
 }

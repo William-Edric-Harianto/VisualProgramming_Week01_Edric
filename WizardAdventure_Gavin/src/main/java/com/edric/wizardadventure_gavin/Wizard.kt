@@ -34,21 +34,39 @@ class Wizard(): Fighter(){
     }
 
     fun evolve(){
-        maxHP=75
-        HP=maxHP
-        maxMana=45
-        mana=maxMana
-        damage=15
-        evolved=true
-        println()
-        println("Successfully evolved to strong wizard!")
-        println()
+        kills++
+        if(!evolved||kills<5){// hasn't evolve
+            maxHP=75
+            HP=maxHP
+            maxMana=45
+            mana=maxMana
+            damage=15
+            evolved=true
+            println()
+            println("Successfully evolved to strong wizard!")
+            println("Increased damage,health, and mana")
+            println()
+        }
     }
 
-    fun lifesteal(monster:Monster){
+    fun lifesteal(monster:Monster):Boolean{
+        var end=false
+        var life_stolen=kills-4
         if(evolved){
-            println("Stole ${kills-4} HP from ${monster.name}")
+            if(life_stolen>=monster.HP){
+                end=true
+                life_stolen=monster.HP
+                monster.HP=0
+                println("${name} successfully defeated ${monster.name}")
+
+            }
+            println("Stole ${life_stolen} HP from ${monster.name}")
+            life_stolen = min(life_stolen+HP,maxHP) - HP
+            println("healed ${life_stolen}HP")
+            HP+=life_stolen
+            if(monster.HP<=0)evolve()
         }
+        return end
     }
 
 //    region drinkPotion
@@ -89,16 +107,15 @@ class Wizard(): Fighter(){
         }
     }
 
+//  endregion
 
-
-    override fun takeDamage(attacker: Fighter, type: Types?) {
+    override fun takeDamage(attacker: Fighter, type: Types?):Boolean {
         super.takeDamage(attacker, type)
         var dmg=attacker.damage
         if(dmg>HP){dmg=HP;HP=0}else{HP-=dmg}
         println("${attacker.name} attacked ${name} -${dmg}HP")
         if(HP==0){println("${attacker.name} successfully defeated ${name}")}
+        return (HP<=0)
     }
-
-//  endregion
 
 }

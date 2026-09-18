@@ -171,13 +171,17 @@ class App {
                 else->println("Invalid Input")
             }
         }
-        return (end||monster.HP==0)
+
+        if(!end&&monster.HP>0){
+            wizard.lifesteal(monster)
+        }
+
+        return (end||monster.HP<=0)
     }
 
     fun monsterATK(monster: Monster):Boolean{
 //        preset
-        var end=false
-        monster.attack(wizard,null)
+        val end:Boolean = monster.attack(wizard,null)
         return (end||wizard.HP==0)
     }
 
