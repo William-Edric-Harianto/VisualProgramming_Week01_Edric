@@ -45,7 +45,7 @@ class Restaurant(
                     return str
                 }
             }
-            print("Wrong input, only integer between ($first - $last) is allowed!")
+            println("Wrong input, only integer between ($first - $last) is allowed!")
         }
     }
 
@@ -64,7 +64,7 @@ class Restaurant(
                     return str
                 }
             }
-            print(error_message)
+            println(error_message)
         }
     }
 
@@ -82,7 +82,7 @@ class Restaurant(
                     return str
                 }
             }
-            print("Wrong input, only integer between ($first - $last) is allowed!")
+            println("Wrong input, only double between ($first - $last) is allowed!")
         }
     }
 
@@ -101,7 +101,7 @@ class Restaurant(
                     return str
                 }
             }
-            print(error_message)
+            println(error_message)
         }
     }
 

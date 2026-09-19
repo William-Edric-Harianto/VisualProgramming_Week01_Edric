@@ -29,26 +29,7 @@ class App {
                         return str
                     }
                 }
-                print("Wrong input, only integer between ($first - $last) is allowed!")
-            }
-        }
-
-        fun takeInput(text: String, first: Int, last: Int, error_message: String): Int {
-            /**
-             * first and last = 0 for no limit
-             */
-
-            val noLimit = first == 0 && last == 0
-            while (true) {
-                print(text)
-                val str = readlnOrNull()?.toIntOrNull()
-                if (str != null) {
-                    val inLimit = str >= first && str <= last
-                    if (noLimit || inLimit) {
-                        return str
-                    }
-                }
-                print(error_message)
+                println("Wrong input, only integer between ($first - $last) is allowed!")
             }
         }
 
@@ -165,7 +146,10 @@ class App {
                     if(wizard.mana<10){
                         println("Not enough Mana!")
                     }else{
-                        wizard.attack(monster,Types.FIRE)
+                        end=wizard.attack(monster,Types.FIRE)
+                        if(!end&&monster.HP>0){
+                            wizard.lifesteal(monster)
+                        }
                         break
                     }
                 }
@@ -173,7 +157,10 @@ class App {
                     if(wizard.mana<10){
                         println("Not enough Mana!")
                     }else {
-                        wizard.attack(monster, Types.WATER)
+                        end=wizard.attack(monster, Types.WATER)
+                        if(!end&&monster.HP>0){
+                            wizard.lifesteal(monster)
+                        }
                         break
                     }
                 }
@@ -181,7 +168,10 @@ class App {
                     if(wizard.mana<10){
                         println("Not enough Mana!")
                     }else {
-                        wizard.attack(monster, Types.GRASS)
+                        end=wizard.attack(monster, Types.GRASS)
+                        if(!end&&monster.HP>0){
+                            wizard.lifesteal(monster)
+                        }
                         break
                     }
                 }
@@ -204,10 +194,6 @@ class App {
                     break}
                 else->println("Invalid Input")
             }
-        }
-
-        if(!end&&monster.HP>0){
-            wizard.lifesteal(monster)
         }
 
         return (end||monster.HP<=0)
