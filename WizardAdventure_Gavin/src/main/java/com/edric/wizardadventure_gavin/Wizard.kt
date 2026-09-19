@@ -59,7 +59,7 @@ class Wizard(): Fighter(){
                 monster.HP=0
                 println("${name} successfully defeated ${monster.name}")
 
-            }
+            }else{monster.HP-=life_stolen}
             println("Stole ${life_stolen} HP from ${monster.name}")
             life_stolen = min(life_stolen+HP,maxHP) - HP
             println("healed ${life_stolen}HP")

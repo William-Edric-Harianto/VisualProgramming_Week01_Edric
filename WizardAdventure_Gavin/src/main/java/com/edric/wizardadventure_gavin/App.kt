@@ -61,7 +61,7 @@ class App {
         wizard= Wizard()
         wizard.name=name
         println()
-        println("Good Luck, $wizard.name! You're gonna need it!")
+        println("Good Luck, ${wizard.name}! You're gonna need it!")
         println()
     }
 

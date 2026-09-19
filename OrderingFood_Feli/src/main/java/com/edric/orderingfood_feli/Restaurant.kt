@@ -119,7 +119,12 @@ class Restaurant(
                 menu.show()
                 println("0. Exit")
                 val select=takeInput("Select: ",0,menu.itemList.size)
-                if (select==0)break
+                if (select==0){
+                    if(currentOrderList.orderList.size<=0){
+                        orderLists.remove(currentOrderList)
+                    }
+                    break
+                }
                 val item=menu.itemList.get(select-1)
                 println("Selection:")
                 item.show()
