@@ -14,8 +14,8 @@ class Wizard(): Fighter(){
     var maxMana=30
     var kills=0
     var evolved=false
-    var HPPotion=50
-    var manaPotion=50
+    var HPPotion=5
+    var manaPotion=5
 
     fun stats(){
         println("""
@@ -35,7 +35,7 @@ class Wizard(): Fighter(){
 
     fun evolve(){
         kills++
-        if(!evolved||kills<5){// hasn't evolve
+        if(!evolved && kills==5){// hasn't evolved and can evolve
             maxHP=75
             HP=maxHP
             maxMana=45
@@ -44,7 +44,7 @@ class Wizard(): Fighter(){
             evolved=true
             println()
             println("Successfully evolved to strong wizard!")
-            println("Increased damage,health, and mana")
+            println("Increased damage, health, and mana")
             println()
         }
     }
@@ -72,26 +72,32 @@ class Wizard(): Fighter(){
 //    region drinkPotion
 
     fun drinkManaPotion(){
-        if(manaPotion>0){
-            manaPotion--
-            val oldMana=mana
-            mana= min(maxMana,mana+15)
-            println("Drank Mana Potion restored ${mana-oldMana}")
+        if(mana>=maxMana){
+            println("Mana is already full")
         }else{
-            println("No Mana Potion in inventory")
-            drinkPotion()
+            if(manaPotion>0){
+                manaPotion--
+                val oldMana=mana
+                mana= min(maxMana,mana+15)
+                println("Drank Mana Potion restored ${mana-oldMana}")
+            }else{
+                println("No Mana Potion in inventory")
+            }
         }
     }
 
     fun drinkHealthPotion(){
-        if(HPPotion>0){
-            HPPotion--
-            val oldHP=HP
-            HP= min(maxHP,HP+25)
-            println("Drank Health Potion restored ${HP-oldHP}")
+        if(HP>=maxHP){
+            println("Health is already full")
         }else{
-            println("No Health Potion in inventory")
-            drinkPotion()
+            if(HPPotion>0){
+                HPPotion--
+                val oldHP=HP
+                HP= min(maxHP,HP+25)
+                println("Drank Health Potion restored ${HP-oldHP}")
+            }else{
+                println("No Health Potion in inventory")
+            }
         }
     }
 
@@ -99,23 +105,42 @@ class Wizard(): Fighter(){
         println("---DRINK POTION---")
         println("1. Drink Mana Potion")
         println("2. Drink Health Potion")
-        val select=App.takeInput("Select Action: ",1,2)
-        if(select==1){
-            drinkManaPotion()
-        }else{
-            drinkHealthPotion()
+        while (true){
+            val select=App.takeInput("Select Action: ",1,2)
+            if(select==1){
+                if(manaPotion>0&&mana<maxMana){//if usable
+                    drinkManaPotion()
+                    break
+                }else {
+                    if (manaPotion <= 0)println("Out of Mana Potions")
+                    if (mana>=maxMana)println("Mana is full")
+                }
+            }else{
+                if(HPPotion>0&&HP<maxHP){//if usable
+                    drinkHealthPotion()
+                    break
+                }else {
+                    if (HPPotion <= 0)println("Out of Health Potions")
+                    if (HP>=maxHP)println("Health is full")
+                }
+            }
         }
+
     }
 
 //  endregion
 
     override fun takeDamage(attacker: Fighter, type: Types?):Boolean {
-        super.takeDamage(attacker, type)
         var dmg=attacker.damage
         if(dmg>HP){dmg=HP;HP=0}else{HP-=dmg}
         println("${attacker.name} attacked ${name} -${dmg}HP")
         if(HP==0){println("${attacker.name} successfully defeated ${name}")}
         return (HP<=0)
+    }
+
+    override fun attack(target: Fighter,type: Types?):Boolean{
+        mana-=10
+        return super.attack(target, type)
     }
 
 }

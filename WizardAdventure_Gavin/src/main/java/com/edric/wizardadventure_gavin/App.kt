@@ -95,13 +95,13 @@ class App {
             c. Rename self
             d. Back
         """.trimIndent())
-            val select=readLine()?:""
+            print("Selection: ");val select=readLine()?:""
             when{
                 select.equals("a",true)->wizard.drinkManaPotion()
                 select.equals("b",true)->wizard.drinkHealthPotion()
                 select.equals("c",true)->rename()
                 select.equals("d",true)->break
-
+                else->println("Invalid Input!")
             }
         }
     }
@@ -120,11 +120,11 @@ class App {
     fun enterBattle(){
         val monster= Monster(Types.entries.random())
         var end=false
+        println("${wizard.name} entered into battle and encountered ${monster.name}!")
         do{
             end=battle(monster)
         }while(!end)
-
-
+        println("battle ended!")
     }
 
     fun battle(monster: Monster):Boolean{
@@ -133,7 +133,7 @@ class App {
         println()
         monster.show()
         var end = wizardATK(monster)
-        end=monsterATK(monster)
+        if(!end) end=monsterATK(monster)
         return end
     }
 
@@ -154,19 +154,46 @@ class App {
             print("Selection: ");val select = readLine()
 
             when{
-                select.equals("a",true)->{wizard.attack(monster,Types.FIRE);break}
-                select.equals("b",true)->{wizard.attack(monster,Types.WATER);break}
-                select.equals("c",true)->{wizard.attack(monster,Types.GRASS);break}
+                select.equals("a",true)->{
+                    if(wizard.mana<10){
+                        println("Not enough Mana!")
+                    }else{
+                        wizard.attack(monster,Types.FIRE)
+                        break
+                    }
+                }
+                select.equals("b",true)->{
+                    if(wizard.mana<10){
+                        println("Not enough Mana!")
+                    }else {
+                        wizard.attack(monster, Types.WATER)
+                        break
+                    }
+                }
+                select.equals("c",true)->{
+                    if(wizard.mana<10){
+                        println("Not enough Mana!")
+                    }else {
+                        wizard.attack(monster, Types.GRASS)
+                        break
+                    }
+                }
                 select.equals("d",true)->{
-                    if(wizard.manaPotion>0||wizard.HPPotion>0){
+                    if(//there is at least a usable potion
+                        (wizard.manaPotion>0 && wizard.HP<wizard.maxHP) ||
+                        (wizard.HPPotion>0 && wizard.mana<wizard.maxMana)
+                        ){
                         wizard.drinkPotion();break
                     }else{
-                        println("No Potion in Inventory")
+                        if(wizard.manaPotion<=0)println("out of Mana Potion")
+                        if(wizard.HPPotion<=0)println("out of Health Potion")
+                        if(wizard.HP>=wizard.maxHP)println("Health is full already")
+                        if(wizard.mana>=wizard.maxMana)println("Mana is full already")
                     }
                 }
                 select.equals("e",true)->{
                     end = true
-                    print("${wizard.name} ran from battle")
+                    println("${wizard.name} ran from battle")
                     break}
                 else->println("Invalid Input")
             }

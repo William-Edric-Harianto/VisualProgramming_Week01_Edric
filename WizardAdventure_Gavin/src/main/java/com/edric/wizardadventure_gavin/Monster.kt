@@ -8,6 +8,7 @@ class Monster(
         name=type.name+"Mon"
         HP=30
         maxHP=30
+        damage=10
     }
 
     fun show(){
@@ -17,7 +18,6 @@ class Monster(
     }
 
     override fun takeDamage(attacker: Fighter, attackerType:Types?):Boolean {
-        super.takeDamage(attacker, type)
         var dmg=attacker.damage
         var end=false
         if(
@@ -25,11 +25,13 @@ class Monster(
             attackerType==Types.WATER && this.type==Types.FIRE||
             attackerType==Types.FIRE && this.type==Types.GRASS
             )
-        {dmg*=2}
-        if(dmg>=HP){dmg=HP;HP=0}
-        println("$name took $dmg amount of damage of ${attacker.name}")
+        {dmg*=2}//type bener
+        //if too much yaach
+        if(dmg>=HP){dmg=HP;HP=0}else{HP-=dmg}
+        //take damage
+        println("$name took $dmg amount of damage from ${attacker.name}")
         if(HP<=0) {
-            println("${attacker.name} Successfully defeated${this.name}")
+            println("${attacker.name} Successfully defeated ${this.name}")
             if(attacker is Wizard){attacker.evolve()}
             end=true
         }
