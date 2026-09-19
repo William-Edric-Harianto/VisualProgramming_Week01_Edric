@@ -2,7 +2,6 @@ package com.edric.wizardadventure_gavin
 
 class App {
 
-    var name=""
     var wizard= Wizard()
 
     fun mainLoop(){
@@ -58,11 +57,11 @@ class App {
 
     fun begin(){
         println("What's your name?")
-        name=readLine()?:name
+        val name=readLine()?:""
         wizard= Wizard()
         wizard.name=name
         println()
-        println("Good Luck, $name! You're gonna need it!")
+        println("Good Luck, $wizard.name! You're gonna need it!")
         println()
     }
 
@@ -94,7 +93,7 @@ class App {
 
     fun viewStats(){
         while (true){
-            println("——— ${name}’s STATS ———")
+            println("——— ${wizard.name}’s STATS ———")
             wizard.stats()
             println("————————————————————————")
             println("""
@@ -115,10 +114,10 @@ class App {
     }
 
     fun rename(){
-        val oldName=name
+        val oldName=wizard.name
         println("Old Name: $oldName")
-        print("New name: ");name=readLine()?:""
-        println("Successfully changed name from $oldName to $name")
+        print("New name: ");wizard.name=readLine()?:""
+        println("Successfully changed name from $oldName to ${wizard.name}")
     }
 
 //            endregion
@@ -188,8 +187,8 @@ class App {
                 }
                 select.equals("d",true)->{
                     if(//there is at least a usable potion
-                        (wizard.manaPotion>0 && wizard.HP<wizard.maxHP) ||
-                        (wizard.HPPotion>0 && wizard.mana<wizard.maxMana)
+                        (wizard.HPPotion>0 && wizard.HP<wizard.maxHP) ||
+                        (wizard.manaPotion>0 && wizard.mana<wizard.maxMana)
                         ){
                         wizard.drinkPotion();break
                     }else{

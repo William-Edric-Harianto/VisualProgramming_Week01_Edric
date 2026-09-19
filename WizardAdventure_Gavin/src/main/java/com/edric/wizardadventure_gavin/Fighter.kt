@@ -1,7 +1,5 @@
 package com.edric.wizardadventure_gavin
 
-import kotlin.math.max
-
 abstract class Fighter {
 
     var name=""

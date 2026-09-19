@@ -17,12 +17,6 @@ class OrderList(
         return hold
     }
 
-    fun getIndex(item:Item): Order?{
-        for(itemOrder in orderList)
-            if (item==itemOrder)
-                return itemOrder
-        return null
-    }
 
     fun show (){
         if(orderList.size==0){
@@ -35,6 +29,7 @@ class OrderList(
                 val count=itemOrder.amount
                 val price=itemOrder.item.price
                 println("$i. ${name} x ${count}    $${count*price}")
+                i++
             }
             println("------------------------")
             println("TOTAL:           $$total")
@@ -52,12 +47,5 @@ class OrderList(
         orderList.add(newOrder)
     }
 
-    fun removeOrder(index:Int,amount:Int){
-        val order = orderList.get(index)
-        if(order.amount==amount) {
-            orderList.remove(order)
-        }else{
-            order.amount-=amount
-        }
-    }
+
 }

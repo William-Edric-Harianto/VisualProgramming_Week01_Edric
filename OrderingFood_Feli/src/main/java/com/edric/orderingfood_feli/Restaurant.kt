@@ -179,9 +179,9 @@ class Restaurant(
             val oldName=item.name;val oldDesc=item.description;val oldPrice=item.price
             item.name=name;item.description=desc;item.price=price
             println("Succesfully Changed:")
-            println("Name from $oldName to $name")
-            println("Name from $oldDesc to $desc")
-            println("Name from $oldPrice to $price")
+            println("Name from \"$oldName\" to \"$name\"")
+            println("Description from from \"$oldDesc\" to \"$desc\"")
+            println("Price from $oldPrice to $price")
             println()
         }
         home()

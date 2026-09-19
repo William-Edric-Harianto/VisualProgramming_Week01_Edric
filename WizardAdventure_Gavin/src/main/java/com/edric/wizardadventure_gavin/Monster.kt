@@ -21,9 +21,9 @@ class Monster(
         var dmg=attacker.damage
         var end=false
         if(
-            attackerType==Types.GRASS && this.type==Types.WATER||
-            attackerType==Types.WATER && this.type==Types.FIRE||
-            attackerType==Types.FIRE && this.type==Types.GRASS
+            (attackerType==Types.GRASS && this.type==Types.WATER) ||
+            (attackerType==Types.WATER && this.type==Types.FIRE) ||
+            (attackerType==Types.FIRE && this.type==Types.GRASS)
             )
         {dmg*=2}//type bener
         //if too much yaach
