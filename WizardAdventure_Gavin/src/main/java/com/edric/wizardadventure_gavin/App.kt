@@ -78,8 +78,16 @@ class App {
             1->viewStats()
             2->enterBattle()
         }
-        home()
-        //no need to point to home
+        if(wizard.HP<=0){
+            println()
+            println("${wizard.name} has been slain!")
+            println()
+            println("Restarting game...")
+            println()
+        }else{
+            home()
+        }
+
     }
 
     //region viewStats
